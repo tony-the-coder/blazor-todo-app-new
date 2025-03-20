@@ -2,7 +2,37 @@
 
 <h3>ToDo</h3>
 
+<br />
+
+@*Always remember to check if the list is null to ensure it runs properly*@
+
+@if (items != null && items.Count > 0)
+{
+    <ul>
+        @foreach (var item in items)
+        {
+            <li @key="item.Id" >
+                @item.Name
+                </li>
+        }
+    </ul>
+}
+else
+{
+<p>No items found</p>
+}
+
+
+<ul>
+
+</ul>
+
 
 @code {
+
+
+    private List<ToDoItem> items = ToDoItemsRepository.GetItems();
+
+
 
 }
