@@ -1,20 +1,38 @@
 ﻿@page "/todolist"
 
+@rendermode InteractiveServer
+
 <h3>ToDo</h3>
 
 <br />
+
+<button type="button" 
+    class="btn btn-primary" 
+    @onclick="AddTask">
+    Add Task
+</button>
+
+<br />
+
+<br />
+
 
 @*Always remember to check if the list is null to ensure it runs properly*@
 
 @if (items != null && items.Count > 0)
 {
+
     <ul>
+
         @foreach (var item in items)
         {
             <li @key="item.Id" >
-                @item.Name
+                <div class="mb-2">
+                <input type="text" class="form-control border-0 " @bind-value="item.Name" />
+                </div>
                 </li>
         }
+
     </ul>
 }
 else
@@ -23,9 +41,7 @@ else
 }
 
 
-<ul>
 
-</ul>
 
 
 @code {
@@ -33,6 +49,11 @@ else
 
     private List<ToDoItem> items = ToDoItemsRepository.GetItems();
 
+    private void AddTask()
+    {
+        ToDoItemsRepository.AddItem(new ToDoItem { Name = "New Task" }); 
+        items = ToDoItemsRepository.GetItems();
+    }
 
 
 }
